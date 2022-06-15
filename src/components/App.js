@@ -6,7 +6,15 @@ import TotalDisplay from './TotalDisplay';
 import CalcButton from './CalcButton';
 
 import reducer, {initialState} from '../reducers';
-import { addOne, applyNumber } from '../actions/index';
+import { 
+  addOne, 
+  applyNumber, 
+  changeOperation, 
+  clearDisplay, 
+  saveMemory, 
+  applyMemory,
+  clearMemory
+ } from '../actions/index';
 
 function App() {
 
@@ -19,6 +27,27 @@ function App() {
   const handleApplyNum = (num) => {
     dispatch( applyNumber(num) );
   }
+
+  const handleChangeOperation = (operator) => {
+    dispatch( changeOperation(operator) );
+  }
+
+  const handleClearDisplay = () => {
+    dispatch( clearDisplay() );
+  }
+
+  const handleSaveMemory = () => {
+    dispatch( saveMemory() );
+  }
+
+  const handleApplyMemory = () => {
+    dispatch( applyMemory() );
+  }  
+
+  const handleClearMemory = () => {
+    dispatch( clearMemory() );
+  }  
+
 
   return (
     <div className="App">
@@ -37,9 +66,9 @@ function App() {
             </div>
             
             <div className="row">
-              <CalcButton value={"M+"}/>
-              <CalcButton value={"MR"}/>
-              <CalcButton value={"MC"}/>
+              <CalcButton value={"M+"} onClick={handleSaveMemory}/>
+              <CalcButton value={"MR"} onClick={handleApplyMemory}/>
+              <CalcButton value={"MC"} onClick={handleClearMemory}/>
             </div>
 
             <div className="row">
@@ -61,13 +90,13 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"+"}/>
-              <CalcButton value={"*"}/>
-              <CalcButton value={"-"}/>
+              <CalcButton value={"+"} onClick={() => handleChangeOperation("+")}/>
+              <CalcButton value={"*"} onClick={() => handleChangeOperation("*")}/>
+              <CalcButton value={"-"} onClick={() => handleChangeOperation("-")}/>
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"}/>
+              <CalcButton value={"CE"} onClick={handleClearDisplay}/>
             </div>
 
           </form>
